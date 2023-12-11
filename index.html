@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vanilla Js CRUD</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main-container">
+        <div class="input-field">
+            <input type="text" name="song-name" class="org-input" id="song-name" placeholder="Song">
+            <input type="text" name="artist" id="artist"  class="org-input" placeholder="Artist">
+            <input type="date" name="publish-date" id="publish-date" class="org-input" placeholder="Published Date">
+            <button class="btn btn-add" id="btn-add">Add</button>
+        </div>
+        <div class="user-data">
+            <table>
+                <tr>
+                    <th>Song</th>
+                    <th>Artist</th>
+                    <th>Published Date</th>
+                    <th>Actions</th>
+                </tr>
+                <tbody>
+                    <tr>
+                        <td>Castle on the Hill</td>
+                        <td>Ed Sherennnn</td>
+                        <td>1-10-2020</td>
+                        <td>
+                            <button class="btn btn-edit">Edit</button>
+                            <button class="btn btn-delete">Del</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+<script src="script.js"></script>
+</html>
