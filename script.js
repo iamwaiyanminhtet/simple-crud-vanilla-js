@@ -7,6 +7,7 @@ let actionKeys = document.querySelector('#data-columns');;
 let songName = document.querySelector('#song-name');
 let artist = document.querySelector('#artist');
 let publishDate = document.querySelector('#publish-date');
+let currentTr;
 
 // create new tr
 function createTr (inputArray) {
@@ -91,7 +92,7 @@ actionKeys.addEventListener('click', (e) => {
             })
 
             // select current tr
-            let currentTr = e.target.parentNode.parentNode;
+            currentTr = e.target.parentNode.parentNode;
 
             // select each td
             let curretSongName = currentTr.firstElementChild;
@@ -107,30 +108,44 @@ actionKeys.addEventListener('click', (e) => {
             songName.value = curretSongNameValue;
             artist.value = currentArtistValue;
             publishDate.value = new Date(currentPublishDateValue).toLocaleDateString('en-CA');
-
-            updateBtn.addEventListener('click', (e) => {
-                // validation
-                if (songName.value === null || songName.value === '' || songName.value === undefined && artist.value === null || artist.value === '' || artist.value === undefined  && publishDate.value === null || publishDate.value === '' || publishDate.value === undefined ) return;
-                else {
-                    // get update value
-                    let updateSongNameValue = songName.value;
-                    let updateArtistValue = artist.value;
-                    let updatePublishDateValue = publishDate.value;
-
-                    // update to each td of current tr
-                    curretSongName.textContent = updateSongNameValue;
-                    currentArtist.textContent = updateArtistValue;
-                    currentPublishDate.textContent = updatePublishDateValue;
-                    
-                    hideUpdateAndCancelBtn(songName,artist,publishDate,clearInputs);
-                }
-            })
-            
         }
 
         // delete key
         if (action === 'delete') {
             e.target.parentNode.parentNode.remove();
         }
+    }
+})
+
+// update btn click
+updateBtn.addEventListener('click', (e) => {
+    // validation
+    if (
+        songName.value === null || 
+        songName.value === '' || 
+        songName.value === undefined && 
+        artist.value === null || 
+        artist.value === '' || 
+        artist.value === undefined && 
+        publishDate.value === null || 
+        publishDate.value === '' || 
+        publishDate.value === undefined ) return;
+    else {
+        // get update value
+        let updateSongNameValue = songName.value;
+        let updateArtistValue = artist.value;
+        let updatePublishDateValue = publishDate.value;
+
+         // select each td
+        let curretSongNameUpdate = currentTr.firstElementChild;
+        let currentArtistUpdate = currentTr.firstElementChild.nextElementSibling;
+        let currentPublishDateUpdate = currentTr.lastElementChild.previousElementSibling;
+
+        // update to each td of current tr
+        curretSongNameUpdate.textContent = updateSongNameValue;
+        currentArtistUpdate.textContent = updateArtistValue;
+        currentPublishDateUpdate.textContent = updatePublishDateValue;
+        
+        hideUpdateAndCancelBtn(songName,artist,publishDate,clearInputs);
     }
 })
