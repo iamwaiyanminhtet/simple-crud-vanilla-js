@@ -81,8 +81,20 @@ body {
 }
 
 .btn.btn-update {
+    background-color: black;
+    color: rgb(0, 146, 97);
+}
+.btn.btn-update:hover {
     background-color: rgb(0, 146, 97);
     color: black;
+}
+
+.btn.btn-cancel {
+    background-color: rgb(152, 152, 152);
+    color: rgb(0, 0, 0);
+}
+.btn.btn-cancel:hover {
+    opacity: 0.5;
 }
 
 table {
