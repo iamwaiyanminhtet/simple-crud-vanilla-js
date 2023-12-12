@@ -12,7 +12,10 @@
             <input type="text" name="song-name" class="org-input" id="song-name" placeholder="Song">
             <input type="text" name="artist" id="artist"  class="org-input" placeholder="Artist">
             <input type="date" name="publish-date" id="publish-date" class="org-input" placeholder="Published Date">
-            <button class="btn btn-add" id="btn-add">Add</button>
+            <div>
+                <button class="btn btn-add" id="btn-add">Add</button>
+                <button class="btn btn-update hidden" id="btn-update">Update</button>
+            </div>
         </div>
         <div class="user-data">
             <table>
@@ -22,14 +25,14 @@
                     <th>Published Date</th>
                     <th>Actions</th>
                 </tr>
-                <tbody>
+                <tbody id="data-columns">
                     <tr>
                         <td>Castle on the Hill</td>
                         <td>Ed Sherennnn</td>
                         <td>1-10-2020</td>
-                        <td>
-                            <button class="btn btn-edit">Edit</button>
-                            <button class="btn btn-delete">Del</button>
+                        <td >
+                            <button class="btn btn-edit" data-action="edit">Edit</button>
+                            <button class="btn btn-delete" data-action="delete">Del</button>
                         </td>
                     </tr>
                 </tbody>

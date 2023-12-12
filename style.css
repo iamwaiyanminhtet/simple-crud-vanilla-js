@@ -80,6 +80,11 @@ body {
     color: black;
 }
 
+.btn.btn-update {
+    background-color: rgb(0, 146, 97);
+    color: black;
+}
+
 table {
     border-collapse: collapse;
     width: 100%;
@@ -97,6 +102,10 @@ table tbody tr td{
     border: 1px solid white;
     padding: 0.5rem;
     font-size: 1rem;
+}
+
+.hidden {
+    display: none;
 }
 
 @media screen and (max-width:900px) {
