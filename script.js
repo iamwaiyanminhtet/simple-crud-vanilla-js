@@ -18,7 +18,7 @@ Storage.prototype.getObj = function(key) {
 }
 
 // after reload, show the stored data to UI if there is
-if ( JSON.parse(localStorage.getItem('data')).length !== 0) {
+if ( JSON.parse(localStorage.getItem('data')) === null || JSON.parse(localStorage.getItem('data')).length !== 0) {
     let tableRows = JSON.parse(localStorage.getItem('data'));
     if (tableRows) {
         // create tr for each table row that is stored
