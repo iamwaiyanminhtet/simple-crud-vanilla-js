@@ -17,28 +17,25 @@ Storage.prototype.getObj = function(key) {
     return JSON.parse(this.getItem(key))
 }
 
-// after reload, show the stored data to UI if there is
-if ( JSON.parse(localStorage.getItem('data')) !== null) {
-    let tableRows = JSON.parse(localStorage.getItem('data'));
-    if (tableRows) {
-        // create tr for each table row that is stored
-        tableRows.forEach(tableRow => {
-            let inputArray = [tableRow.song,tableRow.artist,tableRow.publishDate,'actions'];
-            createTr(inputArray);
-        })
-    }
-} else {
-    // set first tr as default
+window.addEventListener('load', function () {
+   if(JSON.parse(localStorage.getItem('data'))?.length === 0) {
     // save in localStorage
-    let inputArray = ['Northern Attitude','Noah Kahan','2022-11-10','actions'];
-    let storageArray = [];
-    let trData = convertObj(inputArray[0],inputArray[1],inputArray[2]);
-    storageArray.push(trData);
-    localStorage.setObj('data',storageArray);
+      let inputArray = ['Northern Attitude','Noah Kahan','2022-11-10','actions'];
+      let storageArray = [];
+      let trData = convertObj(inputArray[0],inputArray[1],inputArray[2]);
+      storageArray.push(trData);
+      localStorage.setObj('data',storageArray);
+   }
 
-    createTr(inputArray);
-    
-}
+    // after reload, show the stored data to UI if there is
+    let tableRows = JSON.parse(localStorage.getItem('data'));
+    // create tr for each table row that is stored
+    tableRows.forEach(tableRow => {
+        let inputArray = [tableRow.song,tableRow.artist,tableRow.publishDate,'actions'];
+        createTr(inputArray);
+    })
+
+})
 
 // create new tr
 function createTr (inputArray) {
@@ -179,10 +176,7 @@ actionKeys.addEventListener('click', (e) => {
                         tableRows.splice(tableRows.findIndex(row => row.song === itemToBeRemoved.song) , 1)
                     }
             })
-            if (tableRows.length == 0) return
-            else {
-                localStorage.setObj('data',tableRows);
-            } 
+            localStorage.setObj('data',tableRows);
         }
     }
 })
