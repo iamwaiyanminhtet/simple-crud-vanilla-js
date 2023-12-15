@@ -9,6 +9,37 @@ let artist = document.querySelector('#artist');
 let publishDate = document.querySelector('#publish-date');
 let currentTr;
 
+// add custom method to Storage obj
+Storage.prototype.setObj = function(key, obj) {
+    return this.setItem(key, JSON.stringify(obj))
+}
+Storage.prototype.getObj = function(key) {
+    return JSON.parse(this.getItem(key))
+}
+
+// after reload, show the stored data to UI if there is
+if ( JSON.parse(localStorage.getItem('data')).length !== 0) {
+    let tableRows = JSON.parse(localStorage.getItem('data'));
+    if (tableRows) {
+        // create tr for each table row that is stored
+        tableRows.forEach(tableRow => {
+            let inputArray = [tableRow.song,tableRow.artist,tableRow.publishDate,'actions'];
+            createTr(inputArray);
+        })
+    }
+} else {
+    // set first tr as default
+    // save in localStorage
+    let inputArray = ['Northern Attitude','Noah Kahan','2022-11-10','actions'];
+    let storageArray = [];
+    let trData = convertObj(inputArray[0],inputArray[1],inputArray[2]);
+    storageArray.push(trData);
+    localStorage.setObj('data',storageArray);
+
+    createTr(inputArray);
+    
+}
+
 // create new tr
 function createTr (inputArray) {
     let tr = document.createElement('tr');
@@ -55,6 +86,15 @@ function hideUpdateAndCancelBtn (songName,artist,publishDate,clearInputs) {
     clearInputs(songName,artist,publishDate);
 }
 
+// convert to obj
+function convertObj (song,artist,publishDate) {
+    return {
+        'song' : song,
+        'artist' : artist,
+        'publishDate' : publishDate
+    }
+}
+
 addBtn.addEventListener('click',(e) => {
     let inputSongName,inputArtist,inputPublishDate;
     
@@ -69,6 +109,17 @@ addBtn.addEventListener('click',(e) => {
     // if user has inputs
     if (inputSongName,inputArtist,inputPublishDate) {
         let inputArray = [inputSongName,inputArtist,inputPublishDate,'actions'];
+
+        // check if storage data is there
+        let storageArray = JSON.parse(localStorage.getItem('data'));
+        if (storageArray === null) storageArray = [];
+
+        // convert to each tr to obj and save all as an array
+        let trData = convertObj(inputArray[0],inputArray[1],inputArray[2]);
+        storageArray.push(trData);
+        localStorage.setObj('data',storageArray);
+
+        // create newTr in UI
         createTr(inputArray);
         clearInputs(songName,artist,publishDate); 
     }else return;
@@ -113,6 +164,22 @@ actionKeys.addEventListener('click', (e) => {
         // delete key
         if (action === 'delete') {
             e.target.parentNode.parentNode.remove();
+
+            // delete from localStorage
+            let tableRows = JSON.parse(localStorage.getItem('data'));
+            tableRows.forEach(tableRow => {
+                // check all fileds equal
+                if (
+                    tableRow.song == e.target.parentNode.parentNode.firstElementChild.textContent && 
+                    tableRow.artist == e.target.parentNode.parentNode.firstElementChild.nextElementSibling.textContent && 
+                    tableRow.publishDate == e.target.parentNode.parentNode.lastElementChild.previousElementSibling.textContent
+                    ) {
+                        // remove specific obj from array data
+                        const itemToBeRemoved = tableRow;
+                        tableRows.splice(tableRows.findIndex(row => row.song === itemToBeRemoved.song) , 1)
+                    }
+            })
+            localStorage.setObj('data',tableRows);
         }
     }
 })
@@ -141,6 +208,19 @@ updateBtn.addEventListener('click', (e) => {
         let currentArtistUpdate = currentTr.firstElementChild.nextElementSibling;
         let currentPublishDateUpdate = currentTr.lastElementChild.previousElementSibling;
 
+        // save updated values to localStorage
+        let tableRows = JSON.parse(localStorage.getItem('data'));
+        tableRows.forEach(tableRow => {
+            if (
+                tableRow.song == curretSongNameUpdate.textContent && 
+                tableRow.artist == currentArtistUpdate.textContent && 
+                tableRow.publishDate == currentPublishDateUpdate.textContent) {
+                    tableRow.song = updateSongNameValue;
+                    tableRow.artist = updateArtistValue;
+                    tableRow.publishDate = updatePublishDateValue;
+                }
+        })
+        localStorage.setObj('data',tableRows);
         // update to each td of current tr
         curretSongNameUpdate.textContent = updateSongNameValue;
         currentArtistUpdate.textContent = updateArtistValue;
