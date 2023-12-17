@@ -2,6 +2,9 @@ const addBtn = document.querySelector('#btn-add');
 const updateBtn = document.querySelector('#btn-update');
 const cancelBtn = document.querySelector('#btn-cancel');
 const table = document.querySelector('#data-columns');
+const songNameErr = document.querySelector('#song-name-error');
+const artistErr = document.querySelector('#artist-error');
+const publishDateErr = document.querySelector('#publish-date-error');
 
 let actionKeys = document.querySelector('#data-columns');;
 let songName = document.querySelector('#song-name');
@@ -96,12 +99,23 @@ addBtn.addEventListener('click',(e) => {
     let inputSongName,inputArtist,inputPublishDate;
     
     // validation
-    if (songName.value === null || songName.value === '' || songName.value === undefined ) return
-    else inputSongName = songName.value;
-    if (artist.value === null || artist.value === '' || artist.value === undefined ) return
-    else inputArtist = artist.value;
-    if (publishDate.value === null || publishDate.value === '' || publishDate.value === undefined ) return
-    else inputPublishDate = publishDate.value;
+    if (songName.value === null || songName.value === '' || songName.value === undefined ) songNameErr.classList.remove('d-none');
+    else {
+        songNameErr.classList.add('d-none');
+        inputSongName = songName.value
+    };
+
+    if (artist.value === null || artist.value === '' || artist.value === undefined ) artistErr.classList.remove('d-none');
+    else {
+        artistErr.classList.add('d-none');
+        inputArtist = artist.value;
+    }
+
+    if (publishDate.value === null || publishDate.value === '' || publishDate.value === undefined ) publishDateErr.classList.remove('d-none');
+    else {
+        publishDateErr.classList.add('d-none');
+        inputPublishDate = publishDate.value
+    }
 
     // if user has inputs
     if (inputSongName,inputArtist,inputPublishDate) {

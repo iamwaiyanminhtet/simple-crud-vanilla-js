@@ -41,8 +41,20 @@ body {
     outline: none;
     color: black;
     border-radius: 10px;
+}
+
+.input-divs {
     margin: 1rem;
 }
+
+small {
+    color: red;
+}
+
+.d-none {
+    display: none;
+}
+
 .org-input::placeholder {
     color: rgb(3, 3, 3);
 }

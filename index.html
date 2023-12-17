@@ -9,9 +9,18 @@
 <body>
     <div class="main-container">
         <div class="input-field">
-            <input type="text" name="song-name" class="org-input" id="song-name" placeholder="Song">
-            <input type="text" name="artist" id="artist"  class="org-input" placeholder="Artist">
-            <input type="date" name="publish-date" id="publish-date" class="org-input" placeholder="Published Date">
+            <div class="input-divs">
+                <input type="text" name="song-name" class="org-input" id="song-name" placeholder="Song">
+                <small id="song-name-error" class="d-none">Song Name is required</small>
+            </div>
+           <div class="input-divs">
+                <input type="text" name="artist" id="artist"  class="org-input" placeholder="Artist">
+                <small id="artist-error" class="d-none">Artist is required</small>
+           </div>
+           <div class="input-divs">
+                <input type="date" name="publish-date" id="publish-date" class="org-input" placeholder="Published Date"><br>
+                <small id="publish-date-error" class="d-none">Publish Date is required</small>
+           </div>
             <div>
                 <button class="btn btn-add" id="btn-add">Add</button>
                 <button class="btn btn-update hidden" id="btn-update">Update</button>
